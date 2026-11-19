@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../shared/api/api";
 
-const getTypes = createAsyncThunk(
-    "deres/getTypes",
+export const fetchDeresTypes = createAsyncThunk(
+    "deres/fetchDeresTypes",
     async () => {
         try {
             const response = await api.get("/api/deretypes/deretypes");
@@ -36,14 +36,14 @@ const deresSlice = createSlice({
   extraReducers: (builder) => {
     builder
         // Get Dere-Types
-        .addCase(getTypes.pending, (state) => {
+        .addCase(fetchDeresTypes.pending, (state) => {
             state.status = "loading";
         })
-        .addCase(getTypes.fulfilled, (state, action) => {
+        .addCase(fetchDeresTypes.fulfilled, (state, action) => {
             state.status = "success";
             state.items = action.payload;
         })
-        .addCase(getTypes.rejected, (state) => {
+        .addCase(fetchDeresTypes.rejected, (state) => {
             state.status = "error";
         });
   },
